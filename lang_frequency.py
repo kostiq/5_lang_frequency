@@ -1,4 +1,5 @@
 import argparse
+import collections
 
 
 def load_data(filepath):
@@ -7,12 +8,13 @@ def load_data(filepath):
 
 
 def get_most_frequent_words(text):
-    words = set(text.split(' '))
-    count_words = []
-    for word in words:
-        if word.isalpha():
-            count_words.append([word, text.count(word)])
-    return sorted(count_words, key=lambda x: x[1], reverse=True)[:9]
+    c = collections.Counter()
+    for sword in text.lower().split('.'):
+        for word in sword.split(' '):
+            if word.isalpha():
+                c[word.strip()] += 1
+    top_10_word = 10
+    return c.most_common(top_10_word)
 
 
 if __name__ == '__main__':
