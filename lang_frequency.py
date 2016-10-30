@@ -1,5 +1,6 @@
 import argparse
 import collections
+import re
 
 
 def load_data(filepath):
@@ -8,11 +9,8 @@ def load_data(filepath):
 
 
 def get_most_frequent_words(text):
-    c = collections.Counter()
-    for sword in text.lower().split('.'):
-        for word in sword.split(' '):
-            if word.isalpha():
-                c[word.strip()] += 1
+    words = re.findall(r'\w+',text.lower())    
+    c = collections.Counter(words)
     top_10_word = 10
     return c.most_common(top_10_word)
 
